@@ -1,23 +1,26 @@
-# Tested on Python 3.13.1
-# =======================
-# In the terminal use:
-#    pip install -r ./requirements_3.13.txt
-#
-Bootstrap_Flask==2.3.3
-Flask_CKEditor==0.5.1
-Flask_Login==0.6.3
-Flask-Gravatar==0.5.0
-Flask_WTF==1.2.1
-WTForms==3.0.1
-Werkzeug==3.0.0
+# Core Flask & extensions
 Flask==2.3.2
-flask_sqlalchemy==3.1.1
-SQLAlchemy==2.0.25
-gunicorn==21.2.0
-psycopg2-binary==2.9.9
-Jinja2==3.1.4
+Bootstrap-Flask==2.5.0
+Flask-WTF==1.2.1
+Flask-Login==0.6.3
+Flask-Gravatar==0.5.0
+Flask-CKEditor==0.5.1
+flask-sqlalchemy==3.1.1
 
+# Database & ORM
+SQLAlchemy==2.0.35
 
-blinker==1.8.2
-click==8.1.7
-colorama==0.4.6
+# Forms & validation
+WTForms==3.2.1
+email-validator==2.2.0
+
+# Security & utils
+Werkzeug==3.0.6
+Jinja2==3.1.5
+blinker==1.9.0
+
+# Production server
+gunicorn==23.0.0
+
+# Optional: only if you switch to PostgreSQL later
+psycopg2-binary==2.9.10
