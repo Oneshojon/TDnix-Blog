@@ -1,0 +1,38 @@
+# Python / Bytecode
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environments
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# Flask / App specific
+instance/
+*.db
+*.sqlite3
+.webassets-cache
+
+# IDE / Editors
+.idea/
+.vscode/
+*.iml
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+
+# Keep these important files (unignore if needed)
+!main.py
+!forms.py
+!requirements.txt
+!static/
+!templates/

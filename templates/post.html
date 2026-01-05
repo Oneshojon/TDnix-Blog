@@ -1,0 +1,83 @@
+{% include "header.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('{{post.img_url}}')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          <h2 class="subheading">{{ post.subtitle }}</h2>
+          <span class="meta"
+            >Posted by
+            <a href="#">{{ post.author }}</a>
+            on {{ post.date }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        {{ post.body|safe }}
+        <!--TODO: Only show Edit Post button if user id is 1 (admin user) -->
+        <div class="d-flex justify-content-end mb-4">
+          {% if user_id == '1' %}
+          <a
+            class="btn btn-primary float-right"
+            href="{{url_for('edit_post', post_id=post.id)}}"
+            >Edit Post</a
+          >
+          {% endif %}
+        </div>
+
+        <!-- Comments Area -->
+        <!-- TODO: Add a CKEditor for commenting below -->
+        {{ render_form(form) }}
+<!--         {{ ckeditor.create() }}-->
+         {{ ckeditor.load() }}
+        <div class="comment">
+          <!-- TODO: Show all the comments on a post -->
+<!--          flash message after successful commenting-->
+          {% with messages = get_flashed_messages(with_categories=True) %}
+         {% if messages %}
+          <div class="alert-message block-message error">
+          {% for category, msg in messages %}
+         <div class="alert alert-{{ category }} text-center">
+            {{ msg }}
+         </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+          {% if comments and comments|length > 0 %}
+
+          <ul class="commentList">
+             {% for comment in comments %}
+            <li>
+              <div class="commenterImage">
+                <img src="{{ comment.author.email | gravatar }}" />
+              </div>
+              <div class="commentText">
+                <p>{{ comment.text|safe }}</p>
+                <span class="date sub-text">{{ comment.author.user_name }}</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>No comments</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+{% include "footer.html" %}
