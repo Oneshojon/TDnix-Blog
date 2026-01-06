@@ -63,6 +63,8 @@ if DATABASE_URL is None:
     DATABASE_URL = "sqlite:///posts.db"
     print("Using local SQLite fallback")
 
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Recommended to avoid warning
 
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
