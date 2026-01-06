@@ -46,18 +46,24 @@ Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# gravatar = Gravatar(app,
-#                     size=100,
-#                     rating='g',
-#                     default='retro',
-#                     force_default=False,
-#                     force_lower=False,
-#                     use_ssl=False,
-#                     base_url=None)
+gravatar = Gravatar(app,
+                    size=100,
+                    rating='g',
+                    default='retro',
+                    force_default=False,
+                    force_lower=False,
+                    use_ssl=False,
+                    base_url=None)
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL", "sqlite:///posts.db")
+
+DATABASE_URL = os.getenv("DB_URL")  # ← change to "DB_URL"
+if DATABASE_URL is None:
+    DATABASE_URL = "sqlite:///posts.db"
+    print("Using local SQLite fallback")
+
+
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
