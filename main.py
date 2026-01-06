@@ -151,7 +151,7 @@ def register():
             flash(f'An error occurred : {e}', 'danger')
             return redirect(url_for('register', form=reg_form))
         else:
-            flash('Uer registration success!', 'success')
+            flash('User registration was successful!', 'success')
             login_user(new_user)
             return redirect(url_for('get_all_posts'))
 
