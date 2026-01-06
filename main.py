@@ -108,6 +108,9 @@ class Comment(db.Model):
 with app.app_context():
     db.create_all()
 
+
+year = datetime.now().year
+
 # user loader
 @login_manager.user_loader
 def load_user(user_id):
@@ -152,7 +155,7 @@ def register():
             login_user(new_user)
             return redirect(url_for('get_all_posts'))
 
-    return render_template("register.html", form=reg_form,
+    return render_template("register.html", year=year, form=reg_form,
                            logged_in=current_user.is_authenticated)
 
 
@@ -218,11 +221,11 @@ def login():
             return redirect(url_for('get_all_posts'))
         else:
             flash("Incorrect password", "danger")
-            return render_template("login.html", form=prefilled_form)
+            return render_template("login.html", form=prefilled_form, year=year)
 
 
     return render_template("login.html",
-                           form=form, logged_in=current_user.is_authenticated)
+                           form=form, logged_in=current_user.is_authenticated, year=year)
 
 
 @app.route('/logout')
@@ -237,7 +240,7 @@ def get_all_posts():
     posts = result.scalars().all()
     return render_template("index.html", all_posts=posts,
                            logged_in=current_user.is_authenticated,
-                           user_id=current_user.get_id())
+                           user_id=current_user.get_id(), year=year)
 
 
 # TODO: Allow logged-in users to comment on posts
@@ -277,7 +280,7 @@ def show_post(post_id):
         comments=comments,
         form=form,
         post=requested_post,
-    logged_in=current_user.is_authenticated)
+    logged_in=current_user.is_authenticated, year=year)
 
 
 # TODO: Use a decorator so only an admin user can create a new post
@@ -298,7 +301,7 @@ def add_new_post():
         db.session.commit()
         return redirect(url_for("get_all_posts"))
     return render_template("make-post.html",
-                           form=form, logged_in=current_user.is_authenticated)
+                           form=form, logged_in=current_user.is_authenticated, year=year)
 
 
 # TODO: Use a decorator so only an admin user can edit a post
@@ -321,7 +324,7 @@ def edit_post(post_id):
         post.body = edit_form.body.data
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
-    return render_template("make-post.html", form=edit_form, is_edit=True)
+    return render_template("make-post.html", form=edit_form, is_edit=True, year=year)
 
 
 # TODO: Use a decorator so only an admin user can delete a post
@@ -336,7 +339,7 @@ def delete_post(post_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html", logged_in=current_user.is_authenticated)
+    return render_template("about.html", logged_in=current_user.is_authenticated, year=year)
 
 
 def send_email(message, subject):
@@ -369,7 +372,7 @@ def contact():
         return redirect(url_for('contact'))
 
     return render_template("contact.html",
-                           logged_in=current_user.is_authenticated)
+                           logged_in=current_user.is_authenticated, year=year)
 
 
 
