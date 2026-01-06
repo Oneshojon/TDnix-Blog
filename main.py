@@ -45,7 +45,7 @@ Bootstrap5(app)
 # TODO: Configure Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+login_manager.login_view = "login"
 gravatar = Gravatar(app,
                     size=100,
                     rating='g',
@@ -58,7 +58,7 @@ gravatar = Gravatar(app,
 class Base(DeclarativeBase):
     pass
 
-DATABASE_URL = os.getenv("DB_URL")
+DATABASE_URL = os.environ["DB_URL"]
 if DATABASE_URL is None:
     DATABASE_URL = "sqlite:///posts.db"
     print("Using local SQLite fallback")
@@ -127,7 +127,7 @@ year = datetime.now().year
 # user loader
 @login_manager.user_loader
 def load_user(user_id):
-    return db.get_or_404(User, user_id)
+    return db.session.get(User, int(user_id))
 
 
 # TODO: Use Werkzeug to hash the user's password when creating a new user.
@@ -390,4 +390,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
