@@ -1,7 +1,6 @@
 # Core Flask & extensions
 Flask==2.3.2
-#Bootstrap-Flask==2.5.0
-Bootstrap_Flask==2.3.3
+Bootstrap-Flask==2.5.0
 Flask-WTF==1.2.1
 Flask-Login==0.6.3
 Flask-Gravatar==0.5.0
@@ -10,22 +9,19 @@ flask-sqlalchemy==3.1.1
 
 # Database & ORM
 SQLAlchemy==2.0.35
-#  SQLAlchemy==2.0.25
 
 # Forms & validation
-#WTForms==3.2.1
-WTForms==3.0.1
+WTForms==3.2.1
 email-validator==2.2.0
 
 # Security & utils
-Werkzeug==3.0.0
-#Werkzeug==3.0.6
+Werkzeug==3.0.6
 Jinja2==3.1.5
 blinker==1.9.0
 
 # Production server
 python-dotenv==1.0.1
-gunicorn==21.2.0
+gunicorn==23.0.0
 
 # Optional: only if you switch to PostgreSQL later
-psycopg[binary]==3.2.4
+psycopg2-binary==2.9.9
