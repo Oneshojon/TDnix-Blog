@@ -58,7 +58,7 @@ gravatar = Gravatar(app,
 class Base(DeclarativeBase):
     pass
 
-DATABASE_URL = os.getenv("DB_URL")  # ← change to "DB_URL"
+DATABASE_URL = os.getenv("DB_URL")
 if DATABASE_URL is None:
     DATABASE_URL = "sqlite:///posts.db"
     print("Using local SQLite fallback")
@@ -113,12 +113,14 @@ class Comment(db.Model):
     post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("blog_posts.id"), nullable=False)
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey('users.id'), nullable=False)
 
-@app.route('/setup-db')
-def setup_db():
-    with app.app_context():
-        db.create_all()
-    return "Database tables created successfully!"
+# @app.route('/setup-db')
+# def setup_db():
+#     with app.app_context():
+#         db.create_all()
+#     return "Database tables created successfully!"
 
+with app.app_context():
+    db.create_all()
 
 year = datetime.now().year
 
