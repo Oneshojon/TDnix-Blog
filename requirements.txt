@@ -20,6 +20,7 @@ Jinja2==3.1.5
 blinker==1.9.0
 
 # Production server
+python-dotenv==1.0.1
 gunicorn==23.0.0
 
 # Optional: only if you switch to PostgreSQL later
