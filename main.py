@@ -205,7 +205,7 @@ def login():
         prefilled_form = LoginForm(data=user_data)
 
         if user is None:
-            flash(f"{email} is not registered. Cross-check your email or create register for an account", "danger")
+            flash(f"{email} is not registered. Cross-check your email or register account", "danger")
             return redirect(url_for('login'))
 
         if check_password_hash(user.password, password=password):
