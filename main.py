@@ -105,8 +105,11 @@ class Comment(db.Model):
     post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("blog_posts.id"), nullable=False)
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey('users.id'), nullable=False)
 
-with app.app_context():
-    db.create_all()
+@app.route('/setup-db')
+def setup_db():
+    with app.app_context():
+        db.create_all()
+    return "Database tables created successfully!"
 
 
 year = datetime.now().year
